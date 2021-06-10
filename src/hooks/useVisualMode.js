@@ -13,11 +13,10 @@ export default function useVisualMode(initial) {
   const back = () => {
     history.length - 1 &&
       setHistory(prev => {
-        const back = [...prev];
-
-        back.pop();
-        setMode(back[back.length - 1]);
-        return back;
+        const newArr = [...prev];
+        newArr.pop();
+        setMode(newArr[newArr.length - 1]);
+        return newArr;
       });
   };
 
