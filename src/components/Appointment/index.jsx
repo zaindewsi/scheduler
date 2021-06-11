@@ -7,6 +7,7 @@ import useVisualMode from "../../hooks/useVisualMode";
 import Form from "./Form";
 import Status from "./Status";
 import Confirm from "./Confirm";
+import Error from "./Error";
 
 export default function Appointment(props) {
   const EMPTY = "EMPTY";
@@ -16,6 +17,8 @@ export default function Appointment(props) {
   const DELETE = "DELETE";
   const CONFIRM = "CONFIRM";
   const EDIT = "EDIT";
+  const ERROR_SAVE = "ERROR_SAVE";
+  const ERROR_DELETE = "ERROR_DELETE";
 
   function save(name, interviewer) {
     const interview = {
@@ -23,18 +26,24 @@ export default function Appointment(props) {
       interviewer,
     };
     transition(SAVING);
-    props.bookInterview(props.id, interview).then(() => transition(SHOW));
+    props
+      .bookInterview(props.id, interview)
+      .then(() => transition(SHOW))
+      .catch(err => transition(ERROR_SAVE, true));
   }
 
-  function deleteInterview(name, interviewer) {
+  function destroy(name, interviewer) {
     const interview = {
       student: name,
       interviewer,
     };
 
-    transition(DELETE);
+    transition(DELETE, true);
 
-    props.cancelInterview(props.id, interview).then(() => transition(EMPTY));
+    props
+      .cancelInterview(props.id, interview)
+      .then(() => transition(EMPTY))
+      .catch(err => transition(ERROR_DELETE, true));
   }
 
   const { mode, transition, back } = useVisualMode(
@@ -57,9 +66,15 @@ export default function Appointment(props) {
         <Form interviewers={props.interviewers} onCancel={back} onSave={save} />
       )}
       {mode === SAVING && <Status message={SAVING} />}
+      {mode === ERROR_SAVE && (
+        <Error message="Appointment could not be created" onClose={back} />
+      )}
       {mode === DELETE && <Status message={DELETE} />}
+      {mode === ERROR_DELETE && (
+        <Error message="Appointment could not be deleted" onClose={back} />
+      )}
       {mode === CONFIRM && (
-        <Confirm onConfirm={deleteInterview} onCancel={back} message={DELETE} />
+        <Confirm onConfirm={destroy} onCancel={back} message={DELETE} />
       )}
       {mode === EDIT && (
         <Form
