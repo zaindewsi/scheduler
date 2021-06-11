@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Empty from "./Empty";
 import Header from "./Header";
 import Show from "./Show";
@@ -32,16 +32,11 @@ export default function Appointment(props) {
       .catch(err => transition(ERROR_SAVE, true));
   }
 
-  function destroy(name, interviewer) {
-    const interview = {
-      student: name,
-      interviewer,
-    };
-
+  function destroy() {
     transition(DELETE, true);
 
     props
-      .cancelInterview(props.id, interview)
+      .cancelInterview(props.id)
       .then(() => transition(EMPTY))
       .catch(err => transition(ERROR_DELETE, true));
   }
@@ -50,11 +45,20 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+  useEffect(() => {
+    if (props.interview && mode === EMPTY) {
+      transition(SHOW);
+    }
+    if (props.interview === null && mode === SHOW) {
+      transition(EMPTY);
+    }
+  }, [props.interview, transition, mode]);
+
   return (
     <article className="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && (
+      {mode === SHOW && props.interview && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
