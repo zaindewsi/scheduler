@@ -35,13 +35,12 @@ export default function useApplicationData() {
       const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
       webSocket.onopen = () => {
-        webSocket.send("PING");
+        webSocket.send("ping");
 
         webSocket.onmessage = event => {
           const { type, id, interview } = JSON.parse(event.data);
 
-          if (JSON.parse(event.data).type === "SET_INTERVIEW") {
-            console.log("changed db");
+          if (type === "SET_INTERVIEW") {
             dispatch({
               type: type,
               id: id,
