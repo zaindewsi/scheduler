@@ -31,23 +31,27 @@ export default function useApplicationData() {
       });
     });
 
-    const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+    try {
+      const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
-    webSocket.onopen = () => {
-      webSocket.send("ping");
+      webSocket.onopen = () => {
+        webSocket.send("ping");
 
-      webSocket.onmessage = event => {
-        const { type, id, interview } = JSON.parse(event.data);
+        webSocket.onmessage = event => {
+          const { type, id, interview } = JSON.parse(event.data);
 
-        if (type === "SET_INTERVIEW") {
-          dispatch({
-            type: type,
-            id: id,
-            interview: interview,
-          });
-        }
+          if (type === "SET_INTERVIEW") {
+            dispatch({
+              type: type,
+              id: id,
+              interview: interview,
+            });
+          }
+        };
       };
-    };
+    } catch (err) {
+      console.error(err);
+    }
   }, []);
 
   const bookInterview = (id, interview) => {
