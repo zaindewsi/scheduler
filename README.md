@@ -10,15 +10,15 @@ You can test out Scheduler here: https://scheduler.zaindewsi.com/
 
 <b>Saving an appointment</b>
 
-!["Saving an appointment"](https://github.com/zaindewsi/scheduler/blob/master/docs/Save.gif)
+!["Saving an appointment"](https://github.com/zaindewsi/scheduler/blob/main/docs/Save.gif)
 
 <b>Deleting an appointment</b>
 
-!["Deleting an appointment"](https://github.com/zaindewsi/scheduler/blob/master/docs/Selete.gif)
+!["Deleting an appointment"](https://github.com/zaindewsi/scheduler/blob/main/docs/Selete.gif)
 
 <b>Editing an appointment</b>
 
-!["Editing an appointment"](https://github.com/zaindewsi/scheduler/blob/master/docs/Edit.gif)
+!["Editing an appointment"](https://github.com/zaindewsi/scheduler/blob/main/docs/Edit.gif)
 
 ## Get Started
 
