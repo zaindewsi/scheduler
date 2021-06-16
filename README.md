@@ -14,7 +14,7 @@ You can test out Scheduler here: https://scheduler.zaindewsi.com/
 
 <b>Deleting an appointment</b>
 
-!["Deleting an appointment"](https://github.com/zaindewsi/scheduler/blob/main/docs/Selete.gif)
+!["Deleting an appointment"](https://github.com/zaindewsi/scheduler/blob/main/docs/Delete.gif)
 
 <b>Editing an appointment</b>
 
